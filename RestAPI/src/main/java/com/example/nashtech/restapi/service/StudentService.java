@@ -14,4 +14,6 @@ public interface StudentService {
     public void deleteStudent(Integer sid);
 
     public void updateStudent(Student student);
+
+    public boolean isExistStudent(Student student);
 }

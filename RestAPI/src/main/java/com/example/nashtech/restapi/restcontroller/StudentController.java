@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -32,17 +33,29 @@ public class StudentController {
 
     @PostMapping(value = "/save")
     public Student saveStudent(@Valid @RequestBody Student student) {
-        System.out.println("Save student");
+        if (studentService.isExistStudent(student))
+            throw new StudentException(student);
         return studentService.saveStudent(student);
     }
 
     @DeleteMapping(value = "delete/{sid}")
-    public void deleteStudent(@PathVariable Integer sid) {
+    public HashMap<String, String> deleteStudent(@PathVariable Integer sid) {
+        Student student = studentService.getStudent(sid);
+        if (student == null)
+            throw new StudentException(sid);
         studentService.deleteStudent(sid);
+        HashMap<String, String> map = new HashMap<>();
+        map.put("delete student sid = " + sid, "successful");
+        return map;
     }
 
     @PutMapping(value = "/update")
-    public void updateStudent(@Valid @RequestBody Student student) {
+    public HashMap<String, String> updateStudent(@Valid @RequestBody Student student) {
+        if (student == null)
+            throw new StudentException(student.getSid());
         studentService.updateStudent(student);
+        HashMap<String, String> map = new HashMap<>();
+        map.put("update student sid = " + student.getSid(), "successful");
+        return map;
     }
 }

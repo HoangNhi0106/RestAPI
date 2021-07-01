@@ -24,6 +24,7 @@ public class StudentServiceimpl implements StudentService {
     }
 
     public Student getStudent(Integer sid) {
+        if (studentRepository.existsById(sid)) return null;
         return studentRepository.findById(sid).get();
     }
 
@@ -37,5 +38,9 @@ public class StudentServiceimpl implements StudentService {
 
     public void updateStudent(Student student) {
         studentRepository.save(student);
+    }
+
+    public boolean isExistStudent(Student student) {
+        return studentRepository.existsById(student.getSid());
     }
 }
