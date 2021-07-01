@@ -33,18 +33,11 @@ public class StudentServiceimpl implements StudentService {
     }
 
     public Student saveStudent(Student student) {
-        Student _student = studentRepository.save(student);
-        return _student;
+        return studentRepository.save(student);
     }
 
     public void deleteStudent(Integer sid) {
-        List<Student> students = studentRepository.findAll();
-        for (Student student : students) {
-            if (student.getSid() == sid) {
-                studentRepository.delete(student);
-                return;
-            }
-        }
+        studentRepository.deleteById(sid);
     }
 
     public void updateStudent(Student student) {

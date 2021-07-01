@@ -14,8 +14,11 @@ public class Student {
     @Column(name = "sname")
     private String sname;
 
+    enum sex { male, female }
+
+    @Enumerated(EnumType.STRING)
     @Column(name = "gender")
-    private String gender;
+    private sex gender;
 
     @Column(name = "birthday")
     private Date birthday;
@@ -24,7 +27,7 @@ public class Student {
 
     public String getSname() { return sname; }
 
-    public String getGender() { return gender; }
+    public sex getGender() { return gender; }
 
     public Date getBirthday() { return birthday; }
 
@@ -32,7 +35,7 @@ public class Student {
 
     public void setSname(String sname) { this.sname = sname; }
 
-    public void setGender(String gender) { this.gender = gender; }
+    public void setGender(sex gender) { this.gender = gender; }
 
     public void setBirthday(Date birthday) { this.birthday = birthday; }
 }

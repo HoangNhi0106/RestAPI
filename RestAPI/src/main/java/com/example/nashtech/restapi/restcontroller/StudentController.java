@@ -6,6 +6,7 @@ import com.example.nashtech.restapi.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -30,9 +31,9 @@ public class StudentController {
     }
 
     @PostMapping(value = "/save")
-    public Student saveStudent(Student student) {
-        Student _student = studentService.saveStudent(student);
-        return _student;
+    public Student saveStudent(@Valid @RequestBody Student student) {
+        System.out.println("Save student");
+        return studentService.saveStudent(student);
     }
 
     @DeleteMapping(value = "delete/{sid}")
@@ -41,7 +42,7 @@ public class StudentController {
     }
 
     @PutMapping(value = "/update")
-    public void updateStudent(Student student) {
-        studentService.saveStudent(student);
+    public void updateStudent(@Valid @RequestBody Student student) {
+        studentService.updateStudent(student);
     }
 }
