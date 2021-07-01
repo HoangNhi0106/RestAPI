@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentServiceimpl implements StudentService {
@@ -19,17 +20,11 @@ public class StudentServiceimpl implements StudentService {
     }
 
     public List<Student> retrieveStudents() {
-        List<Student> students = studentRepository.findAll();
-        return students;
+        return studentRepository.findAll();
     }
 
     public Student getStudent(Integer sid) {
-        List<Student> students = studentRepository.findAll();
-        for (Student student : students) {
-            if (student.getSid() == sid)
-                return student;
-        }
-        return null;
+        return studentRepository.findById(sid).get();
     }
 
     public Student saveStudent(Student student) {
